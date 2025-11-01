@@ -10,7 +10,7 @@ const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(
       null,
-      path.resolve(`/Users/ishitagupta/Desktop/youtube/public/images/uploads`)
+   path.resolve(__dirname, "../public/images/uploads")
     );
   },
   filename: function (req, file, cb) {

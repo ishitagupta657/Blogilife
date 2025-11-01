@@ -2,24 +2,30 @@ const path = require("path");
 const express = require("express");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
-const Blog = require('./models/blog');
+const Blog = require("./models/blog");
 const { connectToMongoDB } = require("./connect");
 const userRoute = require("./routes/user");
 const blogRoute = require("./routes/blog");
-const { checkForAuthenticationCookie } = require("./middlewares/authentication");
+const {
+  checkForAuthenticationCookie,
+} = require("./middlewares/authentication");
+
+require("dotenv").config(); 
 
 const app = express();
-const PORT = 8000;
+const PORT = process.env.PORT;
 
-connectToMongoDB("mongodb+srv://<username>:<password>@cluster0.up0zfdv.mongodb.net/blogilife")
-  .then(() => console.log("Mongodb connected"));
+
+connectToMongoDB(process.env.MONGODB_URI)
+  .then(() => console.log("MongoDB connected"))
+  .catch((err) => console.error("MongoDB connection error:", err));
 
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(checkForAuthenticationCookie("token"));
-app.use(express.static(path.resolve('./public')));
+app.use(express.static(path.resolve("./public")));
 
 app.get("/", async (req, res) => {
   try {

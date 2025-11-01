@@ -1,33 +1,50 @@
 
-<nav class="navbar navbar-expand-lg bg-success" data-bs-theme="dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Blogilife</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg" data-bs-theme="dark">
+    <div class="container">
+      <a class="navbar-brand" href="/">
+        <i class="fas fa-blog me-2"></i>Blogilife
+      </a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
+        <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link" href="/">
+              <i class="fas fa-home me-1"></i>Home
+            </a>
           </li>
          <% if (locals.user){ %>
           <li class="nav-item">
-            <a class="nav-link" href="/blog/add-new">Add Blog</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Ishita Gupta
+            <a class="nav-link" href="/blog/add-new">
+              <i class="fas fa-plus me-1"></i>Create Blog
             </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="/user/logout">Logout</a></li>
-               </ul>
+          </li>
+          <% } %>        
+        </ul>
+        <ul class="navbar-nav">
+         <% if (locals.user){ %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="<%= locals.user.profileImageURL || '/images/avatar.png' %>" alt="Profile" class="rounded-circle me-2" width="32" height="32">
+              <%= locals.user.fullName || 'User' %>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="/user/logout">
+                <i class="fas fa-sign-out-alt me-2"></i>Logout
+              </a></li>
+            </ul>
           </li>
         <%} else {%>
           <li class="nav-item">
-            <a class="nav-link" href="/user/signup">Create Account</a>
+            <a class="nav-link" href="/user/signup">
+              <i class="fas fa-user-plus me-1"></i>Sign Up
+            </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/user/signin">Signin</a>
+            <a class="nav-link" href="/user/signin">
+              <i class="fas fa-sign-in-alt me-1"></i>Sign In
+            </a>
           </li>
           <% } %>        
         </ul>
@@ -35,8 +52,9 @@
     </div>
   </nav>
   <% if(locals.error){ %>
-    <div class="container mt-3"></div>
-    <div class="alert alert-danger " role="alert">
-     <%= locals.error %>
+    <div class="container mt-3">
+      <div class="alert alert-danger" role="alert">
+        <i class="fas fa-exclamation-triangle me-2"></i><%= locals.error %>
+      </div>
     </div>
 <%} %>
